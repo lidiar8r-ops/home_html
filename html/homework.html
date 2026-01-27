@@ -4,27 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog</title>
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.css">
 </head>
 <body>
-
-
-
-
-    <div class="container my-2">
-
-    </div>
-
-    <div class="container my-5">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="card mb-4">
-
-                </div>
-            </div>
+<div class="row">
+    <div class="col-3 container-md text-bg-primary">
+        меню
+        <!-- Выпадающее меню пользователя -->
+        <div class="dropdown position-absolute bottom-0 start-0 mb-3 ms-3">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                Пользователь
+            </button>
+            <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="#">Профиль</a></li>
+                <li><a class="dropdown-item" href="#">Выход</a></li>
+            </ul>
         </div>
     </div>
+    <div class="container col-9">
+        <div class="row">
 
-    <script src="../js/bootstrap.min.js"></script>
+            главная
+
+
+        </div>
+    </div>
+</div>
+
+<script src="../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
