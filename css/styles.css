@@ -97,3 +97,8 @@ button:hover {
 
   margin: 0;
 }
+
+.bg-gray-lite{
+    background-color: #c9c9c9;
+    margin: 0;
+}

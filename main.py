@@ -1,71 +1,94 @@
+import os
+import urllib.parse
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from urllib.parse import urlparse, parse_qs
 
-hostName = "localhost"
-serverPort = 8080
+# Путь к папке с файлами
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 class MyServer(BaseHTTPRequestHandler):
 
-    # def __get_index(self):
-    #     return """
-    #     <html><head><title>Blog</title></head><body>
-    #     <h1>Lorem blog</h1>
-    #     <ul>
-    #     <li><a href='/?page=news1'>New one</a></li>
-    #     <li><a href='/?page=news2'>New two</a></li>
-    #     <li><a href='/?page=news3'>New three</a></li>
-    #     </ul>
-    #     </body>
-    #     </html>
-    #     """
-
-    # def __get_article_content(self, page_address):
-    #     if page_address == 'news1':
-    #         return 'Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit, amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem. '
-    #     elif page_address == 'news2':
-    #         return 'Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur? At vero eos et accusamus et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident, similique sunt in culpa, qui officia deserunt mollitia animi, id est laborum et dolorum fuga.'
-    #     elif page_address == 'news3':
-    #         return 'Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.'
-    #
-    #     return 'Article not found!'
-    #
-    # def __get_blog_article(self, page_address):
-    #     return f"""
-    #     <html><head><title>Blog</title></head><body>
-    #     <a href="/">Back</a><br>
-    #     <p>{self.__get_article_content(page_address)}</p>
-    #     </body>
-    #     </html>
-    #     """
-
     def do_GET(self):
-        # Устанавливаем код ответа
-        self.send_response(200)
+        """Обработка GET‑запросов (отдача файлов)"""
+        print(f"[GET] Запрос: {self.path}")
 
-        # Устанавливаем тип содержимого
-        self.send_header("Content-type", "text/html")
+        # Определяем путь к файлу
+        if self.path == '/':
+            filepath = os.path.join(CURRENT_DIR, 'html', 'contacts.html')
+        elif self.path.startswith('/css/'):
+            filepath = os.path.join(CURRENT_DIR, 'css', self.path[5:])
+        elif self.path.startswith('/js/'):
+            filepath = os.path.join(CURRENT_DIR, 'js', self.path[4:])
+        elif self.path.startswith('/img/'):
+            filepath = os.path.join(CURRENT_DIR, 'img', self.path[5:])
+        else:
+            filepath = os.path.join(CURRENT_DIR, 'html', self.path.lstrip('/'))
+
+        # Определяем Content-Type
+        if filepath.endswith('.css'):
+            content_type = 'text/css'
+        elif filepath.endswith(('.js', '.json')):
+            content_type = 'application/javascript'
+        elif filepath.endswith(('.png', '.jpg', '.jpeg', '.gif', '.ico')):
+            content_type = 'image/jpeg'  # Для простоты
+        else:
+            content_type = 'text/html'
+
+        try:
+            # Открываем файл
+            if 'image' in content_type:
+                with open(filepath, 'rb') as f:
+                    content = f.read()
+            else:
+                with open(filepath, 'r', encoding='utf-8') as f:
+                    content = f.read().encode('utf-8')
+
+            self.send_response(200)
+            self.send_header('Content-type', content_type)
+            self.end_headers()
+            self.wfile.write(content)
+
+        except FileNotFoundError:
+            self.send_error(404, f'Файл не найден: {self.path}')
+        except Exception as e:
+            self.send_error(500, f'Ошибка: {str(e)}')
+
+
+    def do_POST(self):
+        """Обработка POST‑запросов и вывод в консоль"""
+        print(f"[POST] Получен запрос: {self.path}")
+        if self.path != '/submit':
+            self.send_error(404, 'Неизвестный endpoint')
+            return
+
+        # Читаем и парсим данные формы
+        content_length = int(self.headers['Content-Length'])
+        post_data = self.rfile.read(content_length).decode('utf-8')
+        parsed_data = urllib.parse.parse_qs(post_data)
+
+        # Выводим в консоль
+        print("\n" + "="*40)
+        print("ПОЛУЧЕНЫ ДАННЫЕ ФОРМЫ")
+        print("=" * 40)
+        for key, values in parsed_data.items():
+            print(f"{key}: {values[0]}")
+        print("=" * 40 + "\n")
+
+        # Редирект на главную страницу (contacts.html)
+        self.send_response(303)
+        self.send_header('Location', '/')
         self.end_headers()
 
-        # Читаем содержимое HTML-файла
-        try:
-            with open("html/homework.html", "r", encoding="utf-8") as file:
-                content = file.read()
-            self.wfile.write(bytes(content, "utf-8"))
-        except FileNotFoundError:
-            self.send_error(404, "File not found!")
 
-if __name__ == "__main__":
-    # Создаем сервер
+if __name__ == '__main__':
+    hostName = "localhost"
+    serverPort = 8080
     webServer = HTTPServer((hostName, serverPort), MyServer)
-    print(f"Сервер запущен по адресу http://{hostName}:{serverPort}")
+    print(f"Сервер запущен: http://{hostName}:{serverPort}")
 
     try:
-        # Запускаем сервер
         webServer.serve_forever()
     except KeyboardInterrupt:
         pass
-
-    # Останавливаем сервер
     webServer.server_close()
     print("Сервер остановлен.")
