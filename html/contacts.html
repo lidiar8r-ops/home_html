@@ -46,45 +46,49 @@
                 </ul>
             </div>
         </div>
-        <!-- Основная часть (колонка 9) -->
-        <div class="col-10 p-3">
-            <h1 class="text-center" style="margin-top: 70px; margin-bottom: 20px">Главная</h1>
-            <h5 class="text-center" style="margin-bottom: 50px">Вы находитесь на сайте, предназначенном для продажи
-                товаров.</h5>
-
-
-            <!-- Карточки товаров -->
-            <div class="row">
-                <div class="col-md-4 mb-4">
+        <div class="col-10">
+            <h1 class="text-center" style="margin-top: 70px; margin-bottom: 50px">Контакты</h1>
+            <div class="row mt-5">
+                <div class="col-5">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Товар 1</h5>
-                            <h3 class="text-primary mb-3">$100</h3>
-                            <p class="card-text">10 users included, 2 GB of storage, Email support, Help center
-                                access</p>
-                            <button class="btn btn-outline-primary">Купить</button>
+                            <form>
+                                <h5>Имя</h5>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control">
+                                </div>
+                                <h5>Почта</h5>
+                                <div class="input-group has-validation">
+                                    <span class="input-group-text">@</span>
+                                    <input type="text" class="form-control" id="username" required="">
+                                    <div class="invalid-feedback">
+                                        Your username is required.
+                                    </div>
+                                </div>
+                                <h5 style="margin-top: 15px">Сообщение</h5>
+                                <div class="mb-3">
+                                    <textarea class="form-control" rows="3"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">Отправить</button>
+                            </form>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
+                <div class="col-7">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Товар 1</h5>
-                            <h3 class="text-primary mb-3">$100</h3>
-                            <p class="card-text">10 users included, 2 GB of storage, Email support, Help center
-                                access</p>
-                            <button class="btn btn-outline-primary">Купить</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Товар 1</h5>
-                            <h3 class="text-primary mb-3">$100</h3>
-                            <p class="card-text">10 users included, 2 GB of storage, Email support, Help center
-                                access</p>
-                            <button class="btn btn-outline-primary">Купить</button>
+                            <h2>Наши контакты:</h2>
+                            <div class="row">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                                    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                                    deserunt mollit anim id est laborum.
+                                    While these feedback styles cannot be styled with CSS, you can still customize the
+                                    feedback text through JavaScript.</p>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -93,5 +97,6 @@
     </div>
 </div>
 <script src="../js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
