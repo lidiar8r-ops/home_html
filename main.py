@@ -58,30 +58,36 @@ class MyServer(BaseHTTPRequestHandler):
             self.send_error(500, "Internal server error")
 
 
-def do_POST(self) -> None:
-    """Обработка POST‑запросов и вывод в консоль"""
-    print(f"[POST] Получен запрос: {self.path}")
-    if self.path != "/submit":
-        self.send_error(404, "Неизвестный endpoint")
-        return
+    def do_POST(self) -> None:
+        """Обработка POST‑запросов и вывод в консоль"""
+        print(f"[POST] Получен запрос: {self.path}")
+        # print(f"[HEADERS] {dict(self.headers)}")  # Отладка
 
-    # Читаем и парсим данные формы
-    content_length = int(self.headers["Content-Length"])
-    post_data = self.rfile.read(content_length).decode("utf-8")
-    parsed_data = urllib.parse.parse_qs(post_data)
+        if self.path != '/submit':
+            print(f"[404] Неизвестный endpoint: {self.path}")
+            self.send_error(404, "Endpoint not found")
+            return
 
-    # Выводим в консоль
-    print("\n" + "=" * 40)
-    print("ПОЛУЧЕНЫ ДАННЫЕ ФОРМЫ")
-    print("=" * 40)
-    for key, values in parsed_data.items():
-        print(f"{key}: {values[0]}")
-    print("=" * 40 + "\n")
+        try:
+            content_length = int(self.headers['Content-Length'])
+            post_data = self.rfile.read(content_length).decode('utf-8')
+            parsed_data = urllib.parse.parse_qs(post_data)
 
-    # Редирект на главную страницу (contacts.html)
-    self.send_response(303)
-    self.send_header("Location", "/")
-    self.end_headers()
+            print("\n" + "=" * 40)
+            print("ПОЛУЧЕНЫ ДАННЫЕ ФОРМЫ")
+            print("=" * 40)
+            for key, values in parsed_data.items():
+                print(f"{key}: {values[0]}")
+            print("=" * 40 + "\n")
+
+            # Редирект на главную
+            self.send_response(303)
+            self.send_header('Location', '/')
+            self.end_headers()
+
+        except Exception as e:
+            print(f"[EXCEPTION] {e}")
+            self.send_error(500, "Internal server error")
 
 
 if __name__ == "__main__":
@@ -89,6 +95,7 @@ if __name__ == "__main__":
     serverPort = 8080
     webServer = HTTPServer((hostName, serverPort), MyServer)
     print(f"Сервер запущен: http://{hostName}:{serverPort}")
+    print("завершение работы (по Ctrl+D)")
 
     try:
         webServer.serve_forever()
