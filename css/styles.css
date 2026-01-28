@@ -1,0 +1,104 @@
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  min-height: 100vh;
+}
+
+.sidebar {
+  background-color: black;
+  color: green;
+  padding: 20px;
+  min-height: 100vh; /* Полная высота экрана */
+  display: flex;
+  flex-direction: column;
+}
+
+.card_param {
+  width: 20rem;
+  margin-top: 20px;
+  margin-left: 50px;
+}
+
+.sidebar h3 {
+  color: #fff;
+  margin-bottom: 1.5rem;
+}
+
+.card {
+  border: none;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.card-title {
+  font-weight: bold;
+}
+
+.text-primary {
+  color: #007bff;
+}
+
+.btn-outline-primary {
+  padding: 0.5rem 1rem;
+}
+
+/* Стили для меню */
+.sidebar ul {
+  list-style-type: none; /* Убираем маркеры списка */
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 0; /* Убираем отступы между пунктами */
+  padding: 0;
+  width: 100%; /* Задаём полную ширину */
+  box-sizing: border-box; /* Учитываем отступы в ширину */
+}
+
+.sidebar ul li a {
+  display: block; /* Делаем ссылку блочным элементом */
+  /*padding: 10px; Отступы сверху/снизу */
+  width: 100%; /* Явно задаём ширину */
+  color: white; /* Цвет текста */
+  text-decoration: none; /* Убираем подчёркивание */
+}
+
+.sidebar ul li a:hover {
+  background-color: blue; /* Цвет фона при наведении (можно заменить на #007bff) */
+  color: white; /* Цвет текста при наведении */
+  text-decoration: none; /* Убираем подчёркивание при наведении */
+  transition: background-color 0.3s ease; /* Плавный переход цвета */
+}
+
+/* Стили для выпадающего меню */
+.dropdown-menu {
+  background-color: #555; /* Тёмный фон */
+  color: white; /* Цвет текста */
+}
+
+.dropdown-item {
+  background-color: #555; /* Тёмный фон */
+  color: white; /* Белый текст */
+}
+
+.dropdown-item:hover {
+  color: #555;
+  background-color: green;
+}
+
+button:hover {
+  background-color: #007bff; /* Яркий фон */
+  color: white; /* Контрастный текст */
+}
+
+.bg-gray {
+    background-color: #555;
+    color: white; /* Контрастный текст */
+
+  margin: 0;
+}
+
+.bg-gray-lite{
+    background-color: #c9c9c9;
+    margin: 0;
+}

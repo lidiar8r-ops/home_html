@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2 sidebar">
+            <nav style="background-color: black; w-100; padding: 10px;">
+                <a href="#" style="color: white; display: flex; align-items: center;">
+                    <img src="../img/bootstrap.jpg" alt="Logo" width="24" height="24" style="margin-right: 5px;">
+                    Меню
+                </a>
+            </nav>
+            <hr class="border-2"/>
+            <ul>
+                <li><a class="col-2" href="contacts.html"/>
+                    <img src="../img/home.jpg" width="17" height="17" style="margin-right: 5px;">Главная
+                </li>
+                <li><a class="col-2" href="contacts.html"/>
+                    <img src="../img/dashboard.jpg" width="17" height="17" style="margin-right: 5px;">Категории
+                </li>
+                <li><a class="col-2" href="contacts.html"/>
+                    <img src="../img/orders.jpg" width="17" height="17" style="margin-right: 5px;">Заказы
+                </li>
+                <li><a class="col-2" href="contacts.html"/>
+                    <img src="../img/men.jpg" width="17" height="17" style="margin-right: 5px;">Контакты
+                </li>
+            </ul>
+            <div class="dropdown mt-auto">
+                <a class="btn btn-secondary dropdown-toggle w-100" role="button" data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    Пользователь
+                </a>
+                <ul class="dropdown-menu ">
+                    <li><a class="dropdown-item" href="#">Профиль</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Выход</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-10">
+            <h1 class="text-center" style="margin-top: 10px; margin-bottom: 50px">Контакты</h1>
+            <div class="row mt-5">
+                <div class="col-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="/submit" method="POST">
+                                <h5>Имя</h5>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" name="name" required>
+                                </div>
+
+                                <h5>Почта</h5>
+                                <div class="input-group has-validation">
+                                    <span class="input-group-text">@</span>
+                                    <input type="email" class="form-control" name="email" id="username" required>
+                                    <div class="invalid-feedback">
+                                        Email обязателен.
+                                    </div>
+                                </div>
+
+                                <h5 style="margin-top: 15px">Сообщение</h5>
+                                <div class="mb-3">
+                                    <textarea class="form-control" name="message" rows="3" required></textarea>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary w-100">Отправить</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-7">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2>Наши контакты:</h2>
+                            <div class="row">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                                    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                                    deserunt mollit anim id est laborum.
+                                    While these feedback styles cannot be styled with CSS, you can still customize the
+                                    feedback text through JavaScript.</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
